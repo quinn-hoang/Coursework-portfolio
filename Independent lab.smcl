@@ -1,0 +1,330 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/macbook/Desktop/MSc program/exchange/ARF/Independent lab.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}24 Nov 2023, 17:59:50
+
+{com}. 
+. import excel "/Users/macbook/Desktop/MSc program/exchange/ARF/Independent_data.xlsx", sheet("treated") firstrow
+{res}{text}(11 vars, 396 obs)
+
+{com}. xtset BankID QuarterID
+{res}
+{col 1}{txt:Panel variable: }{res:BankID}{txt: (strongly balanced)}
+{p 1 16 2}{txt:Time variable: }{res:QuarterID}{txt:, }{res:{bind:1}}{txt: to }{res:{bind:33}}{p_end}
+{txt}{col 10}Delta: {res}1 unit
+
+{com}. generate l_size = l.Size
+{txt}(12 missing values generated)
+
+{com}. generate l_liquidity_gap = l.Liquidity_gap
+{txt}(12 missing values generated)
+
+{com}. generate l_earnings = l.Earnings
+{txt}(12 missing values generated)
+
+{com}. generate l_asset_quality = l.Asset_quality
+{txt}(12 missing values generated)
+
+{com}. generate l_capital_adequacy = l.Capital_adequacy
+{txt}(12 missing values generated)
+
+{com}. regress Operating_inefficiency TARP l_size l_liquidity_gap l_earnings l_asset_quality l_capital_adequacy
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}       384
+{txt}{hline 13}{c +}{hline 34}   F(6, 377)       = {res}     7.79
+{txt}       Model {c |} {res} .525622838         6  .087603806   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 4.23815147       377  .011241781   {txt}R-squared       ={res}    0.1103
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0962
+{txt}       Total {c |} {res} 4.76377431       383  .012438053   {txt}Root MSE        =   {res} .10603
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}Operating_ineffi~y{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 14}TARP {c |}{col 20}{res}{space 2}-.0468107{col 32}{space 2} .0147691{col 43}{space 1}   -3.17{col 52}{space 3}0.002{col 60}{space 4}-.0758508{col 73}{space 3}-.0177707
+{txt}{space 12}l_size {c |}{col 20}{res}{space 2}-.0037798{col 32}{space 2} .0033448{col 43}{space 1}   -1.13{col 52}{space 3}0.259{col 60}{space 4}-.0103567{col 73}{space 3}  .002797
+{txt}{space 3}l_liquidity_gap {c |}{col 20}{res}{space 2} 5.63e-06{col 32}{space 2} .0000422{col 43}{space 1}    0.13{col 52}{space 3}0.894{col 60}{space 4}-.0000774{col 73}{space 3} .0000886
+{txt}{space 8}l_earnings {c |}{col 20}{res}{space 2}-.0099076{col 32}{space 2} .0032001{col 43}{space 1}   -3.10{col 52}{space 3}0.002{col 60}{space 4}   -.0162{col 73}{space 3}-.0036153
+{txt}{space 3}l_asset_quality {c |}{col 20}{res}{space 2} .0078294{col 32}{space 2} .0023391{col 43}{space 1}    3.35{col 52}{space 3}0.001{col 60}{space 4} .0032301{col 73}{space 3} .0124288
+{txt}l_capital_adequacy {c |}{col 20}{res}{space 2}-.0065478{col 32}{space 2} .0027108{col 43}{space 1}   -2.42{col 52}{space 3}0.016{col 60}{space 4} -.011878{col 73}{space 3}-.0012176
+{txt}{space 13}_cons {c |}{col 20}{res}{space 2} .8442808{col 32}{space 2} .0411757{col 43}{space 1}   20.50{col 52}{space 3}0.000{col 60}{space 4}  .763318{col 73}{space 3} .9252435
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. import excel "/Users/macbook/Desktop/MSc program/exchange/ARF/Independent_data.xlsx", sheet("treated&control") firstrow clear
+{res}{text}(11 vars, 792 obs)
+
+{com}. xtset BankID QuarterID
+{res}
+{col 1}{txt:Panel variable: }{res:BankID}{txt: (strongly balanced)}
+{p 1 16 2}{txt:Time variable: }{res:QuarterID}{txt:, }{res:{bind:1}}{txt: to }{res:{bind:33}}{p_end}
+{txt}{col 10}Delta: {res}1 unit
+
+{com}. regress Operating_inefficiency D_treated TARP c.D_treated#c.TARP l.Size l.Liquidity_gap l.Earnings l.Asset_quality l.Capital_adequacy
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}       768
+{txt}{hline 13}{c +}{hline 34}   F(8, 759)       = {res}     9.48
+{txt}       Model {c |} {res} .888415047         8  .111051881   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 8.89049631       759  .011713434   {txt}R-squared       ={res}    0.0909
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0813
+{txt}       Total {c |} {res} 9.77891136       767  .012749558   {txt}Root MSE        =   {res} .10823
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}Operating_ineffi~y{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}D_treated {c |}{col 20}{res}{space 2}-.0254869{col 32}{space 2} .0110978{col 43}{space 1}   -2.30{col 52}{space 3}0.022{col 60}{space 4}-.0472728{col 73}{space 3}-.0037009
+{txt}{space 14}TARP {c |}{col 20}{res}{space 2}-.0375148{col 32}{space 2} .0117794{col 43}{space 1}   -3.18{col 52}{space 3}0.002{col 60}{space 4}-.0606389{col 73}{space 3}-.0143908
+{txt}{space 18} {c |}
+c.D_treated#c.TARP {c |}{col 20}{res}{space 2} .0109894{col 32}{space 2} .0164428{col 43}{space 1}    0.67{col 52}{space 3}0.504{col 60}{space 4}-.0212895{col 73}{space 3} .0432682
+{txt}{space 18} {c |}
+{space 14}Size {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0084792{col 32}{space 2} .0022611{col 43}{space 1}    3.75{col 52}{space 3}0.000{col 60}{space 4} .0040404{col 73}{space 3}  .012918
+{txt}{space 18} {c |}
+{space 5}Liquidity_gap {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0000328{col 32}{space 2} .0000253{col 43}{space 1}    1.30{col 52}{space 3}0.196{col 60}{space 4}-.0000169{col 73}{space 3} .0000824
+{txt}{space 18} {c |}
+{space 10}Earnings {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0106429{col 32}{space 2} .0027929{col 43}{space 1}   -3.81{col 52}{space 3}0.000{col 60}{space 4}-.0161257{col 73}{space 3}-.0051601
+{txt}{space 18} {c |}
+{space 5}Asset_quality {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0032407{col 32}{space 2} .0019139{col 43}{space 1}    1.69{col 52}{space 3}0.091{col 60}{space 4}-.0005164{col 73}{space 3} .0069979
+{txt}{space 18} {c |}
+{space 2}Capital_adequacy {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0000967{col 32}{space 2} .0005857{col 43}{space 1}    0.17{col 52}{space 3}0.869{col 60}{space 4}-.0010531{col 73}{space 3} .0012465
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .6824404{col 32}{space 2} .0249063{col 43}{space 1}   27.40{col 52}{space 3}0.000{col 60}{space 4} .6335469{col 73}{space 3} .7313338
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress Operating_inefficiency D_treated TARP c.D_treated#c.TARP l.Size l.Liquidity_gap l.Earnings l.Asset_quality l.Capital_adequacy
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}       768
+{txt}{hline 13}{c +}{hline 34}   F(8, 759)       = {res}     9.48
+{txt}       Model {c |} {res} .888415047         8  .111051881   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 8.89049631       759  .011713434   {txt}R-squared       ={res}    0.0909
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0813
+{txt}       Total {c |} {res} 9.77891136       767  .012749558   {txt}Root MSE        =   {res} .10823
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}Operating_ineffi~y{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}D_treated {c |}{col 20}{res}{space 2}-.0254869{col 32}{space 2} .0110978{col 43}{space 1}   -2.30{col 52}{space 3}0.022{col 60}{space 4}-.0472728{col 73}{space 3}-.0037009
+{txt}{space 14}TARP {c |}{col 20}{res}{space 2}-.0375148{col 32}{space 2} .0117794{col 43}{space 1}   -3.18{col 52}{space 3}0.002{col 60}{space 4}-.0606389{col 73}{space 3}-.0143908
+{txt}{space 18} {c |}
+c.D_treated#c.TARP {c |}{col 20}{res}{space 2} .0109894{col 32}{space 2} .0164428{col 43}{space 1}    0.67{col 52}{space 3}0.504{col 60}{space 4}-.0212895{col 73}{space 3} .0432682
+{txt}{space 18} {c |}
+{space 14}Size {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0084792{col 32}{space 2} .0022611{col 43}{space 1}    3.75{col 52}{space 3}0.000{col 60}{space 4} .0040404{col 73}{space 3}  .012918
+{txt}{space 18} {c |}
+{space 5}Liquidity_gap {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0000328{col 32}{space 2} .0000253{col 43}{space 1}    1.30{col 52}{space 3}0.196{col 60}{space 4}-.0000169{col 73}{space 3} .0000824
+{txt}{space 18} {c |}
+{space 10}Earnings {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0106429{col 32}{space 2} .0027929{col 43}{space 1}   -3.81{col 52}{space 3}0.000{col 60}{space 4}-.0161257{col 73}{space 3}-.0051601
+{txt}{space 18} {c |}
+{space 5}Asset_quality {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0032407{col 32}{space 2} .0019139{col 43}{space 1}    1.69{col 52}{space 3}0.091{col 60}{space 4}-.0005164{col 73}{space 3} .0069979
+{txt}{space 18} {c |}
+{space 2}Capital_adequacy {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0000967{col 32}{space 2} .0005857{col 43}{space 1}    0.17{col 52}{space 3}0.869{col 60}{space 4}-.0010531{col 73}{space 3} .0012465
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .6824404{col 32}{space 2} .0249063{col 43}{space 1}   27.40{col 52}{space 3}0.000{col 60}{space 4} .6335469{col 73}{space 3} .7313338
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. xtreg Operating_inefficiency c.D_treated#c.TARP l.Size l.Liquidity_gap l.Earnings l.Asset_quality l.Capital_adequacy i.QuarterID, fe
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       768
+{txt}Group variable: {res}BankID{txt}{col 49}Number of groups{col 67}={col 69}{res}        24
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1332{col 63}{txt}min{col 67}={col 69}{res}        32
+{txt}     Between = {res}0.0918{col 63}{txt}avg{col 67}={col 69}{res}      32.0
+{txt}     Overall = {res}0.0745{col 63}{txt}max{col 67}={col 69}{res}        32
+
+{txt}{col 49}F({res}37{txt}, {res}707{txt}){col 67}={col 70}{res}     2.94
+{txt}corr(u_i, Xb) = {res}-0.6690{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}Operating_ineffi~y{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+c.D_treated#c.TARP {c |}{col 20}{res}{space 2} .0321751{col 32}{space 2} .0145308{col 43}{space 1}    2.21{col 52}{space 3}0.027{col 60}{space 4} .0036465{col 73}{space 3} .0607037
+{txt}{space 18} {c |}
+{space 14}Size {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0410819{col 32}{space 2} .0205762{col 43}{space 1}    2.00{col 52}{space 3}0.046{col 60}{space 4} .0006841{col 73}{space 3} .0814796
+{txt}{space 18} {c |}
+{space 5}Liquidity_gap {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}  .000043{col 32}{space 2} .0000406{col 43}{space 1}    1.06{col 52}{space 3}0.291{col 60}{space 4}-.0000368{col 73}{space 3} .0001228
+{txt}{space 18} {c |}
+{space 10}Earnings {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0055671{col 32}{space 2} .0027452{col 43}{space 1}   -2.03{col 52}{space 3}0.043{col 60}{space 4}-.0109568{col 73}{space 3}-.0001775
+{txt}{space 18} {c |}
+{space 5}Asset_quality {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0023576{col 32}{space 2}  .002559{col 43}{space 1}   -0.92{col 52}{space 3}0.357{col 60}{space 4}-.0073819{col 73}{space 3} .0026666
+{txt}{space 18} {c |}
+{space 2}Capital_adequacy {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0012586{col 32}{space 2} .0019471{col 43}{space 1}   -0.65{col 52}{space 3}0.518{col 60}{space 4}-.0050814{col 73}{space 3} .0025642
+{txt}{space 18} {c |}
+{space 9}QuarterID {c |}
+{space 16}3  {c |}{col 20}{res}{space 2}-.0062315{col 32}{space 2} .0258798{col 43}{space 1}   -0.24{col 52}{space 3}0.810{col 60}{space 4}-.0570419{col 73}{space 3}  .044579
+{txt}{space 16}4  {c |}{col 20}{res}{space 2}-.0052622{col 32}{space 2} .0258895{col 43}{space 1}   -0.20{col 52}{space 3}0.839{col 60}{space 4}-.0560918{col 73}{space 3} .0455673
+{txt}{space 16}5  {c |}{col 20}{res}{space 2} .0089922{col 32}{space 2} .0259454{col 43}{space 1}    0.35{col 52}{space 3}0.729{col 60}{space 4}-.0419471{col 73}{space 3} .0599315
+{txt}{space 16}6  {c |}{col 20}{res}{space 2} .0353272{col 32}{space 2} .0260066{col 43}{space 1}    1.36{col 52}{space 3}0.175{col 60}{space 4}-.0157323{col 73}{space 3} .0863867
+{txt}{space 16}7  {c |}{col 20}{res}{space 2} .0417332{col 32}{space 2} .0261176{col 43}{space 1}    1.60{col 52}{space 3}0.111{col 60}{space 4}-.0095442{col 73}{space 3} .0930106
+{txt}{space 16}8  {c |}{col 20}{res}{space 2} .0420395{col 32}{space 2}   .02622{col 43}{space 1}    1.60{col 52}{space 3}0.109{col 60}{space 4}-.0094388{col 73}{space 3} .0935178
+{txt}{space 16}9  {c |}{col 20}{res}{space 2} .0501942{col 32}{space 2} .0263379{col 43}{space 1}    1.91{col 52}{space 3}0.057{col 60}{space 4}-.0015157{col 73}{space 3} .1019041
+{txt}{space 15}10  {c |}{col 20}{res}{space 2} .0601879{col 32}{space 2}  .026477{col 43}{space 1}    2.27{col 52}{space 3}0.023{col 60}{space 4} .0082049{col 73}{space 3} .1121708
+{txt}{space 15}11  {c |}{col 20}{res}{space 2} .0555979{col 32}{space 2} .0269109{col 43}{space 1}    2.07{col 52}{space 3}0.039{col 60}{space 4} .0027631{col 73}{space 3} .1084327
+{txt}{space 15}12  {c |}{col 20}{res}{space 2} .0524136{col 32}{space 2}  .027009{col 43}{space 1}    1.94{col 52}{space 3}0.053{col 60}{space 4}-.0006138{col 73}{space 3}  .105441
+{txt}{space 15}13  {c |}{col 20}{res}{space 2} .0531119{col 32}{space 2} .0270323{col 43}{space 1}    1.96{col 52}{space 3}0.050{col 60}{space 4} .0000387{col 73}{space 3} .1061851
+{txt}{space 15}14  {c |}{col 20}{res}{space 2} .0827316{col 32}{space 2}   .02717{col 43}{space 1}    3.04{col 52}{space 3}0.002{col 60}{space 4} .0293881{col 73}{space 3} .1360751
+{txt}{space 15}15  {c |}{col 20}{res}{space 2} .0361087{col 32}{space 2} .0272488{col 43}{space 1}    1.33{col 52}{space 3}0.186{col 60}{space 4}-.0173896{col 73}{space 3}  .089607
+{txt}{space 15}16  {c |}{col 20}{res}{space 2} .0645225{col 32}{space 2} .0274409{col 43}{space 1}    2.35{col 52}{space 3}0.019{col 60}{space 4} .0106472{col 73}{space 3} .1183978
+{txt}{space 15}17  {c |}{col 20}{res}{space 2} .0137767{col 32}{space 2} .0277595{col 43}{space 1}    0.50{col 52}{space 3}0.620{col 60}{space 4}-.0407242{col 73}{space 3} .0682776
+{txt}{space 15}18  {c |}{col 20}{res}{space 2} .1249018{col 32}{space 2} .0277545{col 43}{space 1}    4.50{col 52}{space 3}0.000{col 60}{space 4} .0704107{col 73}{space 3} .1793929
+{txt}{space 15}19  {c |}{col 20}{res}{space 2}  .036142{col 32}{space 2} .0289282{col 43}{space 1}    1.25{col 52}{space 3}0.212{col 60}{space 4}-.0206534{col 73}{space 3} .0929374
+{txt}{space 15}20  {c |}{col 20}{res}{space 2} .0310299{col 32}{space 2} .0286866{col 43}{space 1}    1.08{col 52}{space 3}0.280{col 60}{space 4}-.0252913{col 73}{space 3}  .087351
+{txt}{space 15}21  {c |}{col 20}{res}{space 2}-.0129924{col 32}{space 2} .0290933{col 43}{space 1}   -0.45{col 52}{space 3}0.655{col 60}{space 4}-.0701119{col 73}{space 3} .0441271
+{txt}{space 15}22  {c |}{col 20}{res}{space 2} .0077956{col 32}{space 2} .0298718{col 43}{space 1}    0.26{col 52}{space 3}0.794{col 60}{space 4}-.0508525{col 73}{space 3} .0664436
+{txt}{space 15}23  {c |}{col 20}{res}{space 2} .0027037{col 32}{space 2} .0303428{col 43}{space 1}    0.09{col 52}{space 3}0.929{col 60}{space 4}-.0568691{col 73}{space 3} .0622765
+{txt}{space 15}24  {c |}{col 20}{res}{space 2}  .004742{col 32}{space 2}  .030418{col 43}{space 1}    0.16{col 52}{space 3}0.876{col 60}{space 4}-.0549785{col 73}{space 3} .0644626
+{txt}{space 15}25  {c |}{col 20}{res}{space 2} .0173086{col 32}{space 2} .0304242{col 43}{space 1}    0.57{col 52}{space 3}0.570{col 60}{space 4}-.0424241{col 73}{space 3} .0770412
+{txt}{space 15}26  {c |}{col 20}{res}{space 2} .0296942{col 32}{space 2} .0307168{col 43}{space 1}    0.97{col 52}{space 3}0.334{col 60}{space 4} -.030613{col 73}{space 3} .0900013
+{txt}{space 15}27  {c |}{col 20}{res}{space 2} .0014416{col 32}{space 2} .0302492{col 43}{space 1}    0.05{col 52}{space 3}0.962{col 60}{space 4}-.0579473{col 73}{space 3} .0608305
+{txt}{space 15}28  {c |}{col 20}{res}{space 2} .0247446{col 32}{space 2} .0305039{col 43}{space 1}    0.81{col 52}{space 3}0.418{col 60}{space 4}-.0351445{col 73}{space 3} .0846337
+{txt}{space 15}29  {c |}{col 20}{res}{space 2}-.0149044{col 32}{space 2} .0305507{col 43}{space 1}   -0.49{col 52}{space 3}0.626{col 60}{space 4}-.0748853{col 73}{space 3} .0450765
+{txt}{space 15}30  {c |}{col 20}{res}{space 2} .0199564{col 32}{space 2} .0307746{col 43}{space 1}    0.65{col 52}{space 3}0.517{col 60}{space 4} -.040464{col 73}{space 3} .0803769
+{txt}{space 15}31  {c |}{col 20}{res}{space 2}-.0036684{col 32}{space 2} .0307767{col 43}{space 1}   -0.12{col 52}{space 3}0.905{col 60}{space 4} -.064093{col 73}{space 3} .0567563
+{txt}{space 15}32  {c |}{col 20}{res}{space 2} -.036331{col 32}{space 2} .0309533{col 43}{space 1}   -1.17{col 52}{space 3}0.241{col 60}{space 4}-.0971025{col 73}{space 3} .0244404
+{txt}{space 15}33  {c |}{col 20}{res}{space 2} -.012137{col 32}{space 2} .0311584{col 43}{space 1}   -0.39{col 52}{space 3}0.697{col 60}{space 4}-.0733112{col 73}{space 3} .0490371
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .3165728{col 32}{space 2} .2136038{col 43}{space 1}    1.48{col 52}{space 3}0.139{col 60}{space 4}-.1028008{col 73}{space 3} .7359465
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .09117136
+           {txt}sigma_e {c |} {res} .08956199
+               {txt}rho {c |} {res} .50890395{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}23{txt}, {res}707{txt}) = {res}14.51{col 62}{txt}Prob > F = {res}0.0000
+
+{com}. xtreg Operating_inefficiency c.D_treated#c.TARP l.Size l.Liquidity_gap l.Earnings l.Asset_quality l.Capital_adequacy i.BankID i.QuarterID, fe
+{txt}{p 0 6 2}note: {bf:2.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:3.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:4.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:5.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:6.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:7.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:8.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:9.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:10.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:11.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:12.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:13.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:14.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:15.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:16.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:17.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:18.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:19.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:20.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:21.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:22.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:23.BankID} omitted because of collinearity.{p_end}
+{p 0 6 2}note: {bf:24.BankID} omitted because of collinearity.{p_end}
+{res}
+{txt}Fixed-effects (within) regression{col 49}Number of obs{col 67}={col 69}{res}       768
+{txt}Group variable: {res}BankID{txt}{col 49}Number of groups{col 67}={col 69}{res}        24
+
+{txt}R-squared:{col 49}Obs per group:
+     Within  = {res}0.1332{col 63}{txt}min{col 67}={col 69}{res}        32
+{txt}     Between = {res}0.0918{col 63}{txt}avg{col 67}={col 69}{res}      32.0
+{txt}     Overall = {res}0.0745{col 63}{txt}max{col 67}={col 69}{res}        32
+
+{txt}{col 49}F({res}37{txt}, {res}707{txt}){col 67}={col 70}{res}     2.94
+{txt}corr(u_i, Xb) = {res}-0.6690{txt}{col 49}Prob > F{col 67}={col 73}{res}0.0000
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}Operating_ineffi~y{col 20}{c |} Coefficient{col 32}  Std. err.{col 44}      t{col 52}   P>|t|{col 60}     [95% con{col 73}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+c.D_treated#c.TARP {c |}{col 20}{res}{space 2} .0321751{col 32}{space 2} .0145308{col 43}{space 1}    2.21{col 52}{space 3}0.027{col 60}{space 4} .0036465{col 73}{space 3} .0607037
+{txt}{space 18} {c |}
+{space 14}Size {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2} .0410819{col 32}{space 2} .0205762{col 43}{space 1}    2.00{col 52}{space 3}0.046{col 60}{space 4} .0006841{col 73}{space 3} .0814796
+{txt}{space 18} {c |}
+{space 5}Liquidity_gap {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}  .000043{col 32}{space 2} .0000406{col 43}{space 1}    1.06{col 52}{space 3}0.291{col 60}{space 4}-.0000368{col 73}{space 3} .0001228
+{txt}{space 18} {c |}
+{space 10}Earnings {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0055671{col 32}{space 2} .0027452{col 43}{space 1}   -2.03{col 52}{space 3}0.043{col 60}{space 4}-.0109568{col 73}{space 3}-.0001775
+{txt}{space 18} {c |}
+{space 5}Asset_quality {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0023576{col 32}{space 2}  .002559{col 43}{space 1}   -0.92{col 52}{space 3}0.357{col 60}{space 4}-.0073819{col 73}{space 3} .0026666
+{txt}{space 18} {c |}
+{space 2}Capital_adequacy {c |}
+{space 15}L1. {c |}{col 20}{res}{space 2}-.0012586{col 32}{space 2} .0019471{col 43}{space 1}   -0.65{col 52}{space 3}0.518{col 60}{space 4}-.0050814{col 73}{space 3} .0025642
+{txt}{space 18} {c |}
+{space 12}BankID {c |}
+{space 16}2  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}3  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}4  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}5  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}6  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}7  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}8  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 16}9  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}10  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}11  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}12  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}13  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}14  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}15  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}16  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}17  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}18  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}19  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}20  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}21  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}22  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}23  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 15}24  {c |}{col 20}{res}{space 2}        0{col 32}{txt}  (omitted)
+{space 18} {c |}
+{space 9}QuarterID {c |}
+{space 16}3  {c |}{col 20}{res}{space 2}-.0062315{col 32}{space 2} .0258798{col 43}{space 1}   -0.24{col 52}{space 3}0.810{col 60}{space 4}-.0570419{col 73}{space 3}  .044579
+{txt}{space 16}4  {c |}{col 20}{res}{space 2}-.0052622{col 32}{space 2} .0258895{col 43}{space 1}   -0.20{col 52}{space 3}0.839{col 60}{space 4}-.0560918{col 73}{space 3} .0455673
+{txt}{space 16}5  {c |}{col 20}{res}{space 2} .0089922{col 32}{space 2} .0259454{col 43}{space 1}    0.35{col 52}{space 3}0.729{col 60}{space 4}-.0419471{col 73}{space 3} .0599315
+{txt}{space 16}6  {c |}{col 20}{res}{space 2} .0353272{col 32}{space 2} .0260066{col 43}{space 1}    1.36{col 52}{space 3}0.175{col 60}{space 4}-.0157323{col 73}{space 3} .0863867
+{txt}{space 16}7  {c |}{col 20}{res}{space 2} .0417332{col 32}{space 2} .0261176{col 43}{space 1}    1.60{col 52}{space 3}0.111{col 60}{space 4}-.0095442{col 73}{space 3} .0930106
+{txt}{space 16}8  {c |}{col 20}{res}{space 2} .0420395{col 32}{space 2}   .02622{col 43}{space 1}    1.60{col 52}{space 3}0.109{col 60}{space 4}-.0094388{col 73}{space 3} .0935178
+{txt}{space 16}9  {c |}{col 20}{res}{space 2} .0501942{col 32}{space 2} .0263379{col 43}{space 1}    1.91{col 52}{space 3}0.057{col 60}{space 4}-.0015157{col 73}{space 3} .1019041
+{txt}{space 15}10  {c |}{col 20}{res}{space 2} .0601879{col 32}{space 2}  .026477{col 43}{space 1}    2.27{col 52}{space 3}0.023{col 60}{space 4} .0082049{col 73}{space 3} .1121708
+{txt}{space 15}11  {c |}{col 20}{res}{space 2} .0555979{col 32}{space 2} .0269109{col 43}{space 1}    2.07{col 52}{space 3}0.039{col 60}{space 4} .0027631{col 73}{space 3} .1084327
+{txt}{space 15}12  {c |}{col 20}{res}{space 2} .0524136{col 32}{space 2}  .027009{col 43}{space 1}    1.94{col 52}{space 3}0.053{col 60}{space 4}-.0006138{col 73}{space 3}  .105441
+{txt}{space 15}13  {c |}{col 20}{res}{space 2} .0531119{col 32}{space 2} .0270323{col 43}{space 1}    1.96{col 52}{space 3}0.050{col 60}{space 4} .0000387{col 73}{space 3} .1061851
+{txt}{space 15}14  {c |}{col 20}{res}{space 2} .0827316{col 32}{space 2}   .02717{col 43}{space 1}    3.04{col 52}{space 3}0.002{col 60}{space 4} .0293881{col 73}{space 3} .1360751
+{txt}{space 15}15  {c |}{col 20}{res}{space 2} .0361087{col 32}{space 2} .0272488{col 43}{space 1}    1.33{col 52}{space 3}0.186{col 60}{space 4}-.0173896{col 73}{space 3}  .089607
+{txt}{space 15}16  {c |}{col 20}{res}{space 2} .0645225{col 32}{space 2} .0274409{col 43}{space 1}    2.35{col 52}{space 3}0.019{col 60}{space 4} .0106472{col 73}{space 3} .1183978
+{txt}{space 15}17  {c |}{col 20}{res}{space 2} .0137767{col 32}{space 2} .0277595{col 43}{space 1}    0.50{col 52}{space 3}0.620{col 60}{space 4}-.0407242{col 73}{space 3} .0682776
+{txt}{space 15}18  {c |}{col 20}{res}{space 2} .1249018{col 32}{space 2} .0277545{col 43}{space 1}    4.50{col 52}{space 3}0.000{col 60}{space 4} .0704107{col 73}{space 3} .1793929
+{txt}{space 15}19  {c |}{col 20}{res}{space 2}  .036142{col 32}{space 2} .0289282{col 43}{space 1}    1.25{col 52}{space 3}0.212{col 60}{space 4}-.0206534{col 73}{space 3} .0929374
+{txt}{space 15}20  {c |}{col 20}{res}{space 2} .0310299{col 32}{space 2} .0286866{col 43}{space 1}    1.08{col 52}{space 3}0.280{col 60}{space 4}-.0252913{col 73}{space 3}  .087351
+{txt}{space 15}21  {c |}{col 20}{res}{space 2}-.0129924{col 32}{space 2} .0290933{col 43}{space 1}   -0.45{col 52}{space 3}0.655{col 60}{space 4}-.0701119{col 73}{space 3} .0441271
+{txt}{space 15}22  {c |}{col 20}{res}{space 2} .0077956{col 32}{space 2} .0298718{col 43}{space 1}    0.26{col 52}{space 3}0.794{col 60}{space 4}-.0508525{col 73}{space 3} .0664436
+{txt}{space 15}23  {c |}{col 20}{res}{space 2} .0027037{col 32}{space 2} .0303428{col 43}{space 1}    0.09{col 52}{space 3}0.929{col 60}{space 4}-.0568691{col 73}{space 3} .0622765
+{txt}{space 15}24  {c |}{col 20}{res}{space 2}  .004742{col 32}{space 2}  .030418{col 43}{space 1}    0.16{col 52}{space 3}0.876{col 60}{space 4}-.0549785{col 73}{space 3} .0644626
+{txt}{space 15}25  {c |}{col 20}{res}{space 2} .0173086{col 32}{space 2} .0304242{col 43}{space 1}    0.57{col 52}{space 3}0.570{col 60}{space 4}-.0424241{col 73}{space 3} .0770412
+{txt}{space 15}26  {c |}{col 20}{res}{space 2} .0296942{col 32}{space 2} .0307168{col 43}{space 1}    0.97{col 52}{space 3}0.334{col 60}{space 4} -.030613{col 73}{space 3} .0900013
+{txt}{space 15}27  {c |}{col 20}{res}{space 2} .0014416{col 32}{space 2} .0302492{col 43}{space 1}    0.05{col 52}{space 3}0.962{col 60}{space 4}-.0579473{col 73}{space 3} .0608305
+{txt}{space 15}28  {c |}{col 20}{res}{space 2} .0247446{col 32}{space 2} .0305039{col 43}{space 1}    0.81{col 52}{space 3}0.418{col 60}{space 4}-.0351445{col 73}{space 3} .0846337
+{txt}{space 15}29  {c |}{col 20}{res}{space 2}-.0149044{col 32}{space 2} .0305507{col 43}{space 1}   -0.49{col 52}{space 3}0.626{col 60}{space 4}-.0748853{col 73}{space 3} .0450765
+{txt}{space 15}30  {c |}{col 20}{res}{space 2} .0199564{col 32}{space 2} .0307746{col 43}{space 1}    0.65{col 52}{space 3}0.517{col 60}{space 4} -.040464{col 73}{space 3} .0803769
+{txt}{space 15}31  {c |}{col 20}{res}{space 2}-.0036684{col 32}{space 2} .0307767{col 43}{space 1}   -0.12{col 52}{space 3}0.905{col 60}{space 4} -.064093{col 73}{space 3} .0567563
+{txt}{space 15}32  {c |}{col 20}{res}{space 2} -.036331{col 32}{space 2} .0309533{col 43}{space 1}   -1.17{col 52}{space 3}0.241{col 60}{space 4}-.0971025{col 73}{space 3} .0244404
+{txt}{space 15}33  {c |}{col 20}{res}{space 2} -.012137{col 32}{space 2} .0311584{col 43}{space 1}   -0.39{col 52}{space 3}0.697{col 60}{space 4}-.0733112{col 73}{space 3} .0490371
+{txt}{space 18} {c |}
+{space 13}_cons {c |}{col 20}{res}{space 2} .3165728{col 32}{space 2} .2136038{col 43}{space 1}    1.48{col 52}{space 3}0.139{col 60}{space 4}-.1028008{col 73}{space 3} .7359465
+{txt}{hline 19}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+           sigma_u {c |} {res} .09117136
+           {txt}sigma_e {c |} {res} .08956199
+               {txt}rho {c |} {res} .50890395{txt}   (fraction of variance due to u_i)
+{hline 19}{c BT}{hline 64}
+F test that all u_i=0: F({res}23{txt}, {res}707{txt}) = {res}14.51{col 62}{txt}Prob > F = {res}0.0000
+
+{com}. 

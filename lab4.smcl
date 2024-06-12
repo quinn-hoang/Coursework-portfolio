@@ -1,0 +1,376 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/macbook/Desktop/MSc program/exchange/ARF/lab4.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}12 Dec 2023, 22:23:20
+
+{com}. 
+. import excel "/Users/macbook/Desktop/MSc program/exchange/ARF/Lab 4_daily.xlsx", sheet("Sheet1") firstrow
+{res}{text}(3 vars, 251 obs)
+
+{com}. gen time =_n
+
+. tsset time
+{res}
+{p 0 15 2}{txt:Time variable: }{res:time}{txt:, }{res:{bind:1}}{txt: to }{res:{bind:251}}{p_end}
+{txt}{col 9}Delta: {res}1 unit
+
+{com}. gen rm = (Microsoft-l1.Microsoft)/l1.Microsoft
+{txt}(1 missing value generated)
+
+{com}. gen rs = (SP500-l1.SP500)/l1.SP500
+{txt}(1 missing value generated)
+
+{com}. tsline
+{err}no existing graph command to replay
+{txt}{search r(198), local:r(198);}
+
+{com}. tsline rm
+{res}
+{com}. tsline rs
+{res}
+{com}. tsline rm rs
+{res}
+{com}. regress rs
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}       250
+{txt}{hline 13}{c +}{hline 34}   F(0, 249)       = {res}     0.00
+{txt}       Model {c |} {res}          0         0           .   {txt}Prob > F        ={res}         .
+{txt}    Residual {c |} {res} .015489794       249  .000062208   {txt}R-squared       ={res}    0.0000
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0000
+{txt}       Total {c |} {res} .015489794       249  .000062208   {txt}Root MSE        =   {res} .00789
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}          rs{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0010295{col 26}{space 2} .0004988{col 37}{space 1}    2.06{col 46}{space 3}0.040{col 54}{space 4}  .000047{col 67}{space 3}  .002012
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. {res}{com}estat archlm, lags(1/10)
+{txt}LM test for autoregressive conditional heteroskedasticity (ARCH)
+{hline 13}{c TT}{hline 61}
+{col 5}lags({it:p}){col 14}{c |}{col 25}chi2{col 44}df{col 63}Prob > chi2
+{hline 13}{c +}{hline 61}
+{col 6}  1{col 14}{c |}{res}{col 20}     8.209{col 43}  1{col 63}  0.0042
+{txt}{col 6}  2{col 14}{c |}{res}{col 20}     2.779{col 43}  2{col 63}  0.2492
+{txt}{col 6}  3{col 14}{c |}{res}{col 20}     6.126{col 43}  3{col 63}  0.1056
+{txt}{col 6}  4{col 14}{c |}{res}{col 20}     9.519{col 43}  4{col 63}  0.0494
+{txt}{col 6}  5{col 14}{c |}{res}{col 20}    12.692{col 43}  5{col 63}  0.0264
+{txt}{col 6}  6{col 14}{c |}{res}{col 20}    14.622{col 43}  6{col 63}  0.0234
+{txt}{col 6}  7{col 14}{c |}{res}{col 20}    38.817{col 43}  7{col 63}  0.0000
+{txt}{col 6}  8{col 14}{c |}{res}{col 20}    41.196{col 43}  8{col 63}  0.0000
+{txt}{col 6}  9{col 14}{c |}{res}{col 20}    46.831{col 43}  9{col 63}  0.0000
+{txt}{col 6} 10{col 14}{c |}{res}{col 20}    47.079{col 43} 10{col 63}  0.0000
+{txt}{hline 13}{c BT}{hline 61}
+{col 10}H0: no ARCH effects{col 35}{it:vs.}{col 40}H1: ARCH({it:p}) disturbance
+
+{com}. {res}{com}arch rs, arch(1/1)
+
+{txt}(setting optimization to BHHH)
+Iteration 0:  Log likelihood = {res} 863.77516{txt}  
+Iteration 1:  Log likelihood = {res} 864.36659{txt}  
+Iteration 2:  Log likelihood = {res} 864.41726{txt}  
+Iteration 3:  Log likelihood = {res} 864.42102{txt}  
+Iteration 4:  Log likelihood = {res} 864.42178{txt}  
+(switching optimization to BFGS)
+Iteration 5:  Log likelihood = {res} 864.42194{txt}  
+Iteration 6:  Log likelihood = {res} 864.42197{txt}  
+
+ARCH family regression
+
+Sample: {res}2 {txt}thru{res} 251 {col 49}{txt}Number of obs{col 67}={res}{col 69}       250
+                                                {txt}Wald chi2({res}.{txt})      =  {res}        .
+{txt}Log likelihood = {res}864.422                        {txt}Prob > chi2       =     {res}     .
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}          rs{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rs           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0012312{col 26}{space 2} .0004709{col 37}{space 1}    2.61{col 46}{space 3}0.009{col 54}{space 4} .0003082{col 67}{space 3} .0021542
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARCH         {txt}{c |}
+{space 8}arch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .2976265{col 26}{space 2} .0818549{col 37}{space 1}    3.64{col 46}{space 3}0.000{col 54}{space 4} .1371939{col 67}{space 3}  .458059
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0000454{col 26}{space 2} 3.86e-06{col 37}{space 1}   11.75{col 46}{space 3}0.000{col 54}{space 4} .0000378{col 67}{space 3}  .000053
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. arch rs, arch(1/1) garch(1/1)
+
+{txt}(setting optimization to BHHH)
+Iteration 0:  Log likelihood = {res} 857.62801{txt}  
+Iteration 1:  Log likelihood = {res} 858.98648{txt}  
+Iteration 2:  Log likelihood = {res} 861.04948{txt}  
+Iteration 3:  Log likelihood = {res} 865.13848{txt}  
+Iteration 4:  Log likelihood = {res} 872.39047{txt}  
+(switching optimization to BFGS)
+Iteration 5:  Log likelihood = {res} 877.79136{txt}  
+Iteration 6:  Log likelihood = {res} 878.92663{txt}  
+BFGS stepping has contracted, resetting BFGS Hessian (0)
+Iteration 7:  Log likelihood = {res} 879.88707{txt}  
+Iteration 8:  Log likelihood = {res} 879.89852{txt}  (backed up)
+Iteration 9:  Log likelihood = {res} 879.90262{txt}  (backed up)
+Iteration 10: Log likelihood = {res} 880.13388{txt}  (backed up)
+Iteration 11: Log likelihood = {res} 880.43143{txt}  (backed up)
+BFGS stepping has contracted, resetting BFGS Hessian (1)
+Iteration 12: Log likelihood = {res} 880.78455{txt}  
+Iteration 13: Log likelihood = {res} 880.79379{txt}  (backed up)
+Iteration 14: Log likelihood = {res} 880.79379{txt}  (backed up)
+(switching optimization to BHHH)
+Iteration 15: Log likelihood = {res} 880.79435{txt}  (backed up)
+Iteration 16: Log likelihood = {res} 880.81033{txt}  
+Iteration 17: Log likelihood = {res} 880.81229{txt}  
+Iteration 18: Log likelihood = {res} 880.81272{txt}  
+Iteration 19: Log likelihood = {res} 880.81282{txt}  
+(switching optimization to BFGS)
+Iteration 20: Log likelihood = {res} 880.81284{txt}  
+
+ARCH family regression
+
+Sample: {res}2 {txt}thru{res} 251 {col 49}{txt}Number of obs{col 67}={res}{col 69}       250
+                                                {txt}Wald chi2({res}.{txt})      =  {res}        .
+{txt}Log likelihood = {res}880.8128                       {txt}Prob > chi2       =     {res}     .
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}          rs{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rs           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0013921{col 26}{space 2} .0003789{col 37}{space 1}    3.67{col 46}{space 3}0.000{col 54}{space 4} .0006494{col 67}{space 3} .0021348
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARCH         {txt}{c |}
+{space 8}arch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .2741248{col 26}{space 2} .0632627{col 37}{space 1}    4.33{col 46}{space 3}0.000{col 54}{space 4} .1501322{col 67}{space 3} .3981174
+{txt}{space 12} {c |}
+{space 7}garch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .6842341{col 26}{space 2} .0582849{col 37}{space 1}   11.74{col 46}{space 3}0.000{col 54}{space 4} .5699977{col 67}{space 3} .7984704
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 4.03e-06{col 26}{space 2} 1.84e-06{col 37}{space 1}    2.19{col 46}{space 3}0.029{col 54}{space 4} 4.15e-07{col 67}{space 3} 7.64e-06
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. {res}{com}predict sigma2, variance
+
+. {res}{com}predict u, residuals
+{txt}(1 missing value generated)
+
+{com}. {res}{com}gen u2 = u^2
+{txt}(1 missing value generated)
+
+{com}. tsline sigma2
+{res}
+{com}. arch rs, arch(1/1) tarch(1/1) garch(1/1)
+
+{txt}(setting optimization to BHHH)
+Iteration 0:  Log likelihood = {res} 854.66017{txt}  
+Iteration 1:  Log likelihood = {res} 855.52154{txt}  
+Iteration 2:  Log likelihood = {res} 860.55142{txt}  
+Iteration 3:  Log likelihood = {res}  867.1771{txt}  
+Iteration 4:  Log likelihood = {res}  874.9213{txt}  
+(switching optimization to BFGS)
+BFGS stepping has contracted, resetting BFGS Hessian (0)
+Iteration 5:  Log likelihood = {res} 883.21311{txt}  
+Iteration 6:  Log likelihood = {res} 883.62567{txt}  (backed up)
+Iteration 7:  Log likelihood = {res} 883.62586{txt}  (backed up)
+Iteration 8:  Log likelihood = {res} 883.69171{txt}  (backed up)
+Iteration 9:  Log likelihood = {res} 885.51994{txt}  (backed up)
+Iteration 10: Log likelihood = {res} 886.05528{txt}  (backed up)
+BFGS stepping has contracted, resetting BFGS Hessian (1)
+Iteration 11: Log likelihood = {res} 887.18351{txt}  
+Iteration 12: Log likelihood = {res} 887.20025{txt}  (backed up)
+Iteration 13: Log likelihood = {res} 887.22448{txt}  (backed up)
+Iteration 14: Log likelihood = {res} 887.22726{txt}  (backed up)
+(switching optimization to BHHH)
+Iteration 15: Log likelihood = {res} 887.22995{txt}  (backed up)
+Iteration 16: Log likelihood = {res}  887.2815{txt}  
+Iteration 17: Log likelihood = {res} 887.28531{txt}  
+Iteration 18: Log likelihood = {res} 887.28614{txt}  
+Iteration 19: Log likelihood = {res} 887.28635{txt}  
+(switching optimization to BFGS)
+Iteration 20: Log likelihood = {res} 887.28641{txt}  
+BFGS stepping has contracted, resetting BFGS Hessian (2)
+Iteration 21: Log likelihood = {res} 887.28643{txt}  
+Iteration 22: Log likelihood = {res} 887.28643{txt}  (backed up)
+Iteration 23: Log likelihood = {res} 887.28643{txt}  (backed up)
+Iteration 24: Log likelihood = {res} 887.28643{txt}  (backed up)
+Iteration 25: Log likelihood = {res} 887.28643{txt}  
+
+ARCH family regression
+
+Sample: {res}2 {txt}thru{res} 251 {col 49}{txt}Number of obs{col 67}={res}{col 69}       250
+                                                {txt}Wald chi2({res}.{txt})      =  {res}        .
+{txt}Log likelihood = {res}887.2864                       {txt}Prob > chi2       =     {res}     .
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}          rs{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rs           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}  .000839{col 26}{space 2} .0004101{col 37}{space 1}    2.05{col 46}{space 3}0.041{col 54}{space 4} .0000352{col 67}{space 3} .0016428
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARCH         {txt}{c |}
+{space 8}arch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .3807545{col 26}{space 2} .1000755{col 37}{space 1}    3.80{col 46}{space 3}0.000{col 54}{space 4} .1846102{col 67}{space 3} .5768988
+{txt}{space 12} {c |}
+{space 7}tarch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.3551656{col 26}{space 2} .0929333{col 37}{space 1}   -3.82{col 46}{space 3}0.000{col 54}{space 4}-.5373115{col 67}{space 3}-.1730198
+{txt}{space 12} {c |}
+{space 7}garch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .7319939{col 26}{space 2} .0563054{col 37}{space 1}   13.00{col 46}{space 3}0.000{col 54}{space 4} .6216373{col 67}{space 3} .8423504
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 4.12e-06{col 26}{space 2} 1.48e-06{col 37}{space 1}    2.79{col 46}{space 3}0.005{col 54}{space 4} 1.22e-06{col 67}{space 3} 7.01e-06
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. arch rs, earch(1/1) egarch(1/1)
+
+{txt}(setting optimization to BHHH)
+Iteration 0:  Log likelihood = {res} 464.93189{txt}  
+Iteration 1:  Log likelihood = {res} 723.50226{txt}  
+Iteration 2:  Log likelihood = {res} 773.32309{txt}  
+Iteration 3:  Log likelihood = {res}  813.0408{txt}  
+Iteration 4:  Log likelihood = {res} 826.93073{txt}  
+(switching optimization to BFGS)
+Iteration 5:  Log likelihood = {res}  847.1344{txt}  
+Iteration 6:  Log likelihood = {res} 849.34798{txt}  
+Iteration 7:  Log likelihood = {res} 851.80635{txt}  
+Iteration 8:  Log likelihood = {res} 855.61754{txt}  
+Iteration 9:  Log likelihood = {res} 857.60857{txt}  
+Iteration 10: Log likelihood = {res} 859.63161{txt}  
+Iteration 11: Log likelihood = {res}  862.2535{txt}  
+Iteration 12: Log likelihood = {res} 874.75314{txt}  
+Iteration 13: Log likelihood = {res} 874.75314{txt}  (backed up)
+Iteration 14: Log likelihood = {res} 884.72191{txt}  
+(switching optimization to BHHH)
+Iteration 15: Log likelihood = {res}  885.7791{txt}  
+Iteration 16: Log likelihood = {res} 890.80643{txt}  
+Iteration 17: Log likelihood = {res} 891.68976{txt}  
+Iteration 18: Log likelihood = {res} 891.84081{txt}  
+Iteration 19: Log likelihood = {res} 891.87552{txt}  
+(switching optimization to BFGS)
+Iteration 20: Log likelihood = {res} 891.89059{txt}  
+Iteration 21: Log likelihood = {res} 891.89869{txt}  
+Iteration 22: Log likelihood = {res} 891.89878{txt}  
+Iteration 23: Log likelihood = {res} 891.89878{txt}  
+Iteration 24: Log likelihood = {res} 891.89878{txt}  
+
+ARCH family regression
+
+Sample: {res}2 {txt}thru{res} 251 {col 49}{txt}Number of obs{col 67}={res}{col 69}       250
+                                                {txt}Wald chi2({res}.{txt})      =  {res}        .
+{txt}Log likelihood = {res}891.8988                       {txt}Prob > chi2       =     {res}     .
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}      OPG
+{col 1}          rs{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rs           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0006575{col 26}{space 2} .0004171{col 37}{space 1}    1.58{col 46}{space 3}0.115{col 54}{space 4}-.0001599{col 67}{space 3}  .001475
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}ARCH         {txt}{c |}
+{space 7}earch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.2582423{col 26}{space 2} .0410835{col 37}{space 1}   -6.29{col 46}{space 3}0.000{col 54}{space 4}-.3387645{col 67}{space 3}-.1777201
+{txt}{space 12} {c |}
+{space 5}earch_a {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .1991913{col 26}{space 2} .0769202{col 37}{space 1}    2.59{col 46}{space 3}0.010{col 54}{space 4} .0484304{col 67}{space 3} .3499521
+{txt}{space 12} {c |}
+{space 6}egarch {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .9213318{col 26}{space 2} .0271391{col 37}{space 1}   33.95{col 46}{space 3}0.000{col 54}{space 4} .8681403{col 67}{space 3} .9745234
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.7816123{col 26}{space 2} .2683108{col 37}{space 1}   -2.91{col 46}{space 3}0.004{col 54}{space 4}-1.307492{col 67}{space 3}-.2557327
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. mgarch dvech (rm =) (rs =), arch(1/1) garch(1/1)
+{res}{txt}
+Getting starting values
+(setting technique to bhhh)
+Iteration 0:{space 2}Log likelihood = {res: 1733.2325}  (not concave)
+Iteration 1:{space 2}Log likelihood = {res: 1737.3501}  
+Iteration 2:{space 2}Log likelihood = {res: 1737.5558}  (backed up)
+Iteration 3:{space 2}Log likelihood = {res: 1737.5688}  (backed up)
+Iteration 4:{space 2}Log likelihood = {res: 1737.5721}  (backed up)
+Iteration 5:{space 2}Log likelihood = {res: 1737.5729}  (backed up)
+Iteration 6:{space 2}Log likelihood = {res: 1737.5733}  (backed up)
+Iteration 7:{space 2}Log likelihood = {res: 1737.5734}  (backed up)
+(switching technique to nr)
+Iteration 8:{space 2}Log likelihood = {res: 1737.5734}  (not concave)
+Iteration 9:{space 2}Log likelihood = {res: 1739.9676}  (not concave)
+Iteration 10:{space 1}Log likelihood = {res: 1740.8023}  (not concave)
+Iteration 11:{space 1}Log likelihood = {res: 1740.8849}  (not concave)
+Iteration 12:{space 1}Log likelihood = {res: 1740.9177}  (not concave)
+Iteration 13:{space 1}Log likelihood = {res: 1740.9309}  (not concave)
+Iteration 14:{space 1}Log likelihood = {res: 1740.9414}  (not concave)
+Iteration 15:{space 1}Log likelihood = {res: 1740.9435}  (not concave)
+Iteration 16:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 17:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 18:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 19:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 20:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 21:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 22:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 23:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 24:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+Iteration 25:{space 1}Log likelihood = {res: 1740.9439}  (not concave)
+convergence not achieved
+{txt}
+Estimating parameters
+(setting technique to bhhh)
+Iteration 0:{space 2}Log likelihood = {res: 1740.9439}  (backed up)
+Iteration 1:{space 2}Log likelihood = {res: 1743.8442}  
+Iteration 2:{space 2}Log likelihood = {res:  1745.881}  
+Iteration 3:{space 2}Log likelihood = {res: 1746.7017}  
+Iteration 4:{space 2}Log likelihood = {res: 1749.7289}  
+(switching technique to nr)
+Iteration 5:{space 2}Log likelihood = {res: 1751.6783}  (not concave)
+Iteration 6:{space 2}Log likelihood = {res: 1754.2007}  (not concave)
+Iteration 7:{space 2}Log likelihood = {res: 1754.6973}  (not concave)
+Iteration 8:{space 2}Log likelihood = {res: 1754.9134}  
+Iteration 9:{space 2}Log likelihood = {res: 1755.5571}  (not concave)
+Iteration 10:{space 1}Log likelihood = {res: 1757.3066}  
+Iteration 11:{space 1}Log likelihood = {res: 1757.9069}  
+Iteration 12:{space 1}Log likelihood = {res: 1759.1423}  
+Iteration 13:{space 1}Log likelihood = {res: 1759.2513}  
+Iteration 14:{space 1}Log likelihood = {res: 1759.2522}  
+Iteration 15:{space 1}Log likelihood = {res: 1759.2522}  
+{res}
+{txt}Diagonal vech MGARCH model
+{col 1}Sample: {res}2 {txt}thru{res} 251 {col 60}{txt}{lalign 13:Number of obs} = {res}{ralign 3:250}
+{txt}Distribution: Gaussian{col 60}{txt}{lalign 13:Wald chi2({res:.})} = {res}{ralign 3:.}
+{txt}Log likelihood = {res}1759.252{col 60}{txt}{lalign 13:Prob > chi2} = {res}{ralign 3:.}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rm           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0025666{col 26}{space 2} .0006425{col 37}{space 1}    3.99{col 46}{space 3}0.000{col 54}{space 4} .0013073{col 67}{space 3} .0038258
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}rs           {txt}{c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0013072{col 26}{space 2} .0003841{col 37}{space 1}    3.40{col 46}{space 3}0.001{col 54}{space 4} .0005543{col 67}{space 3} .0020601
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}/Sigma0      {txt}{c |}
+{space 9}1_1 {c |}{col 14}{res}{space 2} .0000363{col 26}{space 2} 9.94e-06{col 37}{space 1}    3.66{col 46}{space 3}0.000{col 54}{space 4} .0000168{col 67}{space 3} .0000558
+{txt}{space 9}2_1 {c |}{col 14}{res}{space 2} .0000108{col 26}{space 2} 3.12e-06{col 37}{space 1}    3.46{col 46}{space 3}0.001{col 54}{space 4} 4.70e-06{col 67}{space 3} .0000169
+{txt}{space 9}2_2 {c |}{col 14}{res}{space 2} 7.04e-06{col 26}{space 2} 2.21e-06{col 37}{space 1}    3.18{col 46}{space 3}0.001{col 54}{space 4} 2.70e-06{col 67}{space 3} .0000114
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}L.ARCH       {txt}{c |}
+{space 9}1_1 {c |}{col 14}{res}{space 2} .1987649{col 26}{space 2} .0577263{col 37}{space 1}    3.44{col 46}{space 3}0.001{col 54}{space 4} .0856234{col 67}{space 3} .3119064
+{txt}{space 9}2_1 {c |}{col 14}{res}{space 2} .1517597{col 26}{space 2} .0460927{col 37}{space 1}    3.29{col 46}{space 3}0.001{col 54}{space 4} .0614197{col 67}{space 3} .2420998
+{txt}{space 9}2_2 {c |}{col 14}{res}{space 2} .1929558{col 26}{space 2} .0593056{col 37}{space 1}    3.25{col 46}{space 3}0.001{col 54}{space 4} .0767189{col 67}{space 3} .3091926
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}L.GARCH      {txt}{c |}
+{space 9}1_1 {c |}{col 14}{res}{space 2} .5544611{col 26}{space 2} .0716413{col 37}{space 1}    7.74{col 46}{space 3}0.000{col 54}{space 4} .4140467{col 67}{space 3} .6948754
+{txt}{space 9}2_1 {c |}{col 14}{res}{space 2} .6848924{col 26}{space 2} .0536351{col 37}{space 1}   12.77{col 46}{space 3}0.000{col 54}{space 4} .5797694{col 67}{space 3} .7900153
+{txt}{space 9}2_2 {c |}{col 14}{res}{space 2} .6794811{col 26}{space 2} .0597059{col 37}{space 1}   11.38{col 46}{space 3}0.000{col 54}{space 4} .5624596{col 67}{space 3} .7965026
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. {res}{com}predict var_s, variance equation(rs)
+{txt}(1 missing value generated)
+{res}
+{com}. {res}{com}predict cov, variance equation(rs, rm)
+{txt}(1 missing value generated)
+{res}
+{com}. {res}{com}tsline sigma2
+{res}
+{com}. tsline u2
+{res}
+{com}. 

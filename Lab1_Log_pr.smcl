@@ -1,0 +1,314 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/macbook/Desktop/MSc program/exchange/ARF/Lab1_Log_pr.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}10 Nov 2023, 10:11:19
+
+{com}. regress Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA, vce(robust)
+
+{txt}Linear regression                               Number of obs     = {res}       145
+                                                {txt}F(5, 139)         =  {res}     5.27
+                                                {txt}Prob > F          = {res}    0.0002
+                                                {txt}R-squared         = {res}    0.2529
+                                                {txt}Root MSE          =    {res} .24322
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-.3532088{col 26}{space 2} .1692951{col 37}{space 1}   -2.09{col 46}{space 3}0.039{col 54}{space 4}-.6879354{col 67}{space 3}-.0184823
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} .2305867{col 26}{space 2} .1086979{col 37}{space 1}    2.12{col 46}{space 3}0.036{col 54}{space 4} .0156717{col 67}{space 3} .4455017
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0023304{col 26}{space 2} .0021096{col 37}{space 1}    1.10{col 46}{space 3}0.271{col 54}{space 4}-.0018406{col 67}{space 3} .0065014
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0442885{col 26}{space 2} .0250699{col 37}{space 1}   -1.77{col 46}{space 3}0.079{col 54}{space 4}-.0938561{col 67}{space 3} .0052792
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2} .0721918{col 26}{space 2} .2045629{col 37}{space 1}    0.35{col 46}{space 3}0.725{col 54}{space 4}-.3322654{col 67}{space 3} .4766489
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.5689275{col 26}{space 2} .2523112{col 37}{space 1}   -2.25{col 46}{space 3}0.026{col 54}{space 4}-1.067792{col 67}{space 3}-.0700635
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. {res}{com}predict prob_lpm, xb
+
+. {res}{com}logistic Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA, coef
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:145}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:35.72}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-23.529777}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.4315}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-5.383666{col 26}{space 2} 3.131915{col 37}{space 1}   -1.72{col 46}{space 3}0.086{col 54}{space 4}-11.52211{col 67}{space 3} .7547752
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} 12.79771{col 26}{space 2} 5.329545{col 37}{space 1}    2.40{col 46}{space 3}0.016{col 54}{space 4} 2.351994{col 67}{space 3} 23.24343
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .1627112{col 26}{space 2} .1446036{col 37}{space 1}    1.13{col 46}{space 3}0.260{col 54}{space 4}-.1207066{col 67}{space 3}  .446129
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0872197{col 26}{space 2}   .17832{col 37}{space 1}   -0.49{col 46}{space 3}0.625{col 54}{space 4}-.4367206{col 67}{space 3} .2622811
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-3.403702{col 26}{space 2} 6.899367{col 37}{space 1}   -0.49{col 46}{space 3}0.622{col 54}{space 4}-16.92621{col 67}{space 3} 10.11881
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-14.17934{col 26}{space 2} 4.257425{col 37}{space 1}   -3.33{col 46}{space 3}0.001{col 54}{space 4}-22.52374{col 67}{space 3}-5.834942
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. probit Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.391079}  
+Iteration 1:{space 2}Log likelihood = {res:-26.735858}  
+Iteration 2:{space 2}Log likelihood = {res:-23.821696}  
+Iteration 3:{space 2}Log likelihood = {res:-23.189238}  
+Iteration 4:{space 2}Log likelihood = {res:-23.177954}  
+Iteration 5:{space 2}Log likelihood = {res:-23.177935}  
+Iteration 6:{space 2}Log likelihood = {res:-23.177935}  
+{res}
+{txt}{col 1}Probit regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:145}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:36.43}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-23.177935}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.4400}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-3.271975{col 26}{space 2} 1.799147{col 37}{space 1}   -1.82{col 46}{space 3}0.069{col 54}{space 4}-6.798239{col 67}{space 3} .2542883
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} 6.626933{col 26}{space 2} 2.610239{col 37}{space 1}    2.54{col 46}{space 3}0.011{col 54}{space 4} 1.510959{col 67}{space 3} 11.74291
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0816833{col 26}{space 2} .0740363{col 37}{space 1}    1.10{col 46}{space 3}0.270{col 54}{space 4}-.0634252{col 67}{space 3} .2267918
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0657253{col 26}{space 2}  .100746{col 37}{space 1}   -0.65{col 46}{space 3}0.514{col 54}{space 4}-.2631839{col 67}{space 3} .1317333
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-2.634754{col 26}{space 2} 3.850534{col 37}{space 1}   -0.68{col 46}{space 3}0.494{col 54}{space 4}-10.18166{col 67}{space 3} 4.912154
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-7.667735{col 26}{space 2} 2.138258{col 37}{space 1}   -3.59{col 46}{space 3}0.000{col 54}{space 4}-11.85864{col 67}{space 3}-3.476825
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: 12 failures and 0 successes completely determined.{p_end}
+
+{com}. {res}{com}predict prob_probit, p
+
+. {res}{com}logit Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.391079}  
+Iteration 1:{space 2}Log likelihood = {res:-33.246123}  
+Iteration 2:{space 2}Log likelihood = {res:-27.021837}  
+Iteration 3:{space 2}Log likelihood = {res:-24.117631}  
+Iteration 4:{space 2}Log likelihood = {res:-23.556795}  
+Iteration 5:{space 2}Log likelihood = {res:-23.529804}  
+Iteration 6:{space 2}Log likelihood = {res:-23.529777}  
+Iteration 7:{space 2}Log likelihood = {res:-23.529777}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:145}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:35.72}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-23.529777}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.4315}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-5.383666{col 26}{space 2} 3.131915{col 37}{space 1}   -1.72{col 46}{space 3}0.086{col 54}{space 4}-11.52211{col 67}{space 3} .7547752
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} 12.79771{col 26}{space 2} 5.329545{col 37}{space 1}    2.40{col 46}{space 3}0.016{col 54}{space 4} 2.351994{col 67}{space 3} 23.24343
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .1627112{col 26}{space 2} .1446036{col 37}{space 1}    1.13{col 46}{space 3}0.260{col 54}{space 4}-.1207066{col 67}{space 3}  .446129
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0872197{col 26}{space 2}   .17832{col 37}{space 1}   -0.49{col 46}{space 3}0.625{col 54}{space 4}-.4367206{col 67}{space 3} .2622811
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-3.403702{col 26}{space 2} 6.899367{col 37}{space 1}   -0.49{col 46}{space 3}0.622{col 54}{space 4}-16.92621{col 67}{space 3} 10.11881
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-14.17934{col 26}{space 2} 4.257425{col 37}{space 1}   -3.33{col 46}{space 3}0.001{col 54}{space 4}-22.52374{col 67}{space 3}-5.834942
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. {res}{com}predict prob_logit, p
+
+. {res}{com}egen float prob_unconditional = mean(Bankruptcy)
+
+. {res}{com}estat classification, cutoff(0.0827)
+
+{txt}Logistic model for Bankruptcy
+
+{col 15}{hline 8} True {hline 8}
+Classified {c |}{col 22}D{col 35}~D  {c |}{col 46}Total
+{hline 11}{c +}{hline 26}{c +}{hline 11}
+{col 6}+{col 12}{c |} {res}       11{col 28}       24{txt}  {c |}  {res}       35
+{txt}{col 6}-{col 12}{c |} {res}        1{col 28}      109{txt}  {c |}  {res}      110
+{txt}{hline 11}{c +}{hline 26}{c +}{hline 11}
+   Total   {c |} {res}       12{col 28}      133{txt}  {c |}  {res}      145
+
+{txt}Classified + if predicted Pr(D) >= .0827
+True D defined as Bankruptcy != 0
+{hline 50}
+Sensitivity                     Pr( +| D){res}   91.67%
+{txt}Specificity                     Pr( -|~D){res}   81.95%
+{txt}Positive predictive value       Pr( D| +){res}   31.43%
+{txt}Negative predictive value       Pr(~D| -){res}   99.09%
+{txt}{hline 50}
+False + rate for true ~D        Pr( +|~D){res}   18.05%
+{txt}False - rate for true D         Pr( -| D){res}    8.33%
+{txt}False + rate for classified +   Pr(~D| +){res}   68.57%
+{txt}False - rate for classified -   Pr( D| -){res}    0.91%
+{txt}{hline 50}
+Correctly classified                     {res}   82.76%
+{txt}{hline 50}
+
+{com}. {res}{com}probit Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.391079}  
+Iteration 1:{space 2}Log likelihood = {res:-26.735858}  
+Iteration 2:{space 2}Log likelihood = {res:-23.821696}  
+Iteration 3:{space 2}Log likelihood = {res:-23.189238}  
+Iteration 4:{space 2}Log likelihood = {res:-23.177954}  
+Iteration 5:{space 2}Log likelihood = {res:-23.177935}  
+Iteration 6:{space 2}Log likelihood = {res:-23.177935}  
+{res}
+{txt}{col 1}Probit regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:145}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:36.43}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-23.177935}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.4400}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-3.271975{col 26}{space 2} 1.799147{col 37}{space 1}   -1.82{col 46}{space 3}0.069{col 54}{space 4}-6.798239{col 67}{space 3} .2542883
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} 6.626933{col 26}{space 2} 2.610239{col 37}{space 1}    2.54{col 46}{space 3}0.011{col 54}{space 4} 1.510959{col 67}{space 3} 11.74291
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0816833{col 26}{space 2} .0740363{col 37}{space 1}    1.10{col 46}{space 3}0.270{col 54}{space 4}-.0634252{col 67}{space 3} .2267918
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0657253{col 26}{space 2}  .100746{col 37}{space 1}   -0.65{col 46}{space 3}0.514{col 54}{space 4}-.2631839{col 67}{space 3} .1317333
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-2.634754{col 26}{space 2} 3.850534{col 37}{space 1}   -0.68{col 46}{space 3}0.494{col 54}{space 4}-10.18166{col 67}{space 3} 4.912154
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-7.667735{col 26}{space 2} 2.138258{col 37}{space 1}   -3.59{col 46}{space 3}0.000{col 54}{space 4}-11.85864{col 67}{space 3}-3.476825
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: 12 failures and 0 successes completely determined.{p_end}
+
+{com}. {res}{com}estat classification, cutoff(0.0827)
+
+{txt}Probit model for Bankruptcy
+
+{col 15}{hline 8} True {hline 8}
+Classified {c |}{col 22}D{col 35}~D  {c |}{col 46}Total
+{hline 11}{c +}{hline 26}{c +}{hline 11}
+{col 6}+{col 12}{c |} {res}       11{col 28}       24{txt}  {c |}  {res}       35
+{txt}{col 6}-{col 12}{c |} {res}        1{col 28}      109{txt}  {c |}  {res}      110
+{txt}{hline 11}{c +}{hline 26}{c +}{hline 11}
+   Total   {c |} {res}       12{col 28}      133{txt}  {c |}  {res}      145
+
+{txt}Classified + if predicted Pr(D) >= .0827
+True D defined as Bankruptcy != 0
+{hline 50}
+Sensitivity                     Pr( +| D){res}   91.67%
+{txt}Specificity                     Pr( -|~D){res}   81.95%
+{txt}Positive predictive value       Pr( D| +){res}   31.43%
+{txt}Negative predictive value       Pr(~D| -){res}   99.09%
+{txt}{hline 50}
+False + rate for true ~D        Pr( +|~D){res}   18.05%
+{txt}False - rate for true D         Pr( -| D){res}    8.33%
+{txt}False + rate for classified +   Pr(~D| +){res}   68.57%
+{txt}False - rate for classified -   Pr( D| -){res}    0.91%
+{txt}{hline 50}
+Correctly classified                     {res}   82.76%
+{txt}{hline 50}
+
+{com}. {res}{com}margins,dydx(*)
+{res}
+{txt}{col 1}Average marginal effects{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:145}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(Bankruptcy), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:NIMTA TLMTA MB RSIZE CASHMTA}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-.2825148{col 26}{space 2} .1450219{col 37}{space 1}   -1.95{col 46}{space 3}0.051{col 54}{space 4}-.5667525{col 67}{space 3}  .001723
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} .5721946{col 26}{space 2} .2142589{col 37}{space 1}    2.67{col 46}{space 3}0.008{col 54}{space 4} .1522548{col 67}{space 3} .9921343
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0070528{col 26}{space 2} .0063417{col 37}{space 1}    1.11{col 46}{space 3}0.266{col 54}{space 4}-.0053767{col 67}{space 3} .0194824
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2} -.005675{col 26}{space 2}  .008557{col 37}{space 1}   -0.66{col 46}{space 3}0.507{col 54}{space 4}-.0224464{col 67}{space 3} .0110964
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-.2274947{col 26}{space 2} .3270917{col 37}{space 1}   -0.70{col 46}{space 3}0.487{col 54}{space 4}-.8685827{col 67}{space 3} .4135934
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. margins,dydx(*) atmeans
+{res}
+{txt}{col 1}Conditional marginal effects{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:145}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(Bankruptcy), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:NIMTA TLMTA MB RSIZE CASHMTA}{p_end}
+{p2colreset}{...}
+{lalign 4:At: }{space 0}{lalign 7:NIMTA} = {res:{ralign 9:-.0112566}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:TLMTA} = {res:{ralign 9:.5970872}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:MB} = {res:{ralign 9:1.857537}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:RSIZE} = {res:{ralign 9:-11.3026}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:CASHMTA} = {res:{ralign 9:.0710063}} {txt:(mean)}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-.0160234{col 26}{space 2} .0330574{col 37}{space 1}   -0.48{col 46}{space 3}0.628{col 54}{space 4}-.0808148{col 67}{space 3}  .048768
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} .0324531{col 26}{space 2}  .059588{col 37}{space 1}    0.54{col 46}{space 3}0.586{col 54}{space 4}-.0843371{col 67}{space 3} .1492434
+{txt}{space 10}MB {c |}{col 14}{res}{space 2}    .0004{col 26}{space 2} .0007934{col 37}{space 1}    0.50{col 46}{space 3}0.614{col 54}{space 4} -.001155{col 67}{space 3}  .001955
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0003219{col 26}{space 2} .0009746{col 37}{space 1}   -0.33{col 46}{space 3}0.741{col 54}{space 4}-.0022321{col 67}{space 3} .0015883
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-.0129028{col 26}{space 2} .0294686{col 37}{space 1}   -0.44{col 46}{space 3}0.661{col 54}{space 4}-.0706602{col 67}{space 3} .0448546
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. logit Bankruptcy NIMTA TLMTA MB RSIZE CASHMTA
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-41.391079}  
+Iteration 1:{space 2}Log likelihood = {res:-33.246123}  
+Iteration 2:{space 2}Log likelihood = {res:-27.021837}  
+Iteration 3:{space 2}Log likelihood = {res:-24.117631}  
+Iteration 4:{space 2}Log likelihood = {res:-23.556795}  
+Iteration 5:{space 2}Log likelihood = {res:-23.529804}  
+Iteration 6:{space 2}Log likelihood = {res:-23.529777}  
+Iteration 7:{space 2}Log likelihood = {res:-23.529777}  
+{res}
+{txt}{col 1}Logistic regression{col 57}{lalign 13:Number of obs}{col 70} = {res}{ralign 6:145}
+{txt}{col 57}{lalign 13:LR chi2({res:5})}{col 70} = {res}{ralign 6:35.72}
+{txt}{col 57}{lalign 13:Prob > chi2}{col 70} = {res}{ralign 6:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-23.529777}{txt}{col 57}{lalign 13:Pseudo R2}{col 70} = {res}{ralign 6:0.4315}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}  Bankruptcy{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-5.383666{col 26}{space 2} 3.131915{col 37}{space 1}   -1.72{col 46}{space 3}0.086{col 54}{space 4}-11.52211{col 67}{space 3} .7547752
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} 12.79771{col 26}{space 2} 5.329545{col 37}{space 1}    2.40{col 46}{space 3}0.016{col 54}{space 4} 2.351994{col 67}{space 3} 23.24343
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .1627112{col 26}{space 2} .1446036{col 37}{space 1}    1.13{col 46}{space 3}0.260{col 54}{space 4}-.1207066{col 67}{space 3}  .446129
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0872197{col 26}{space 2}   .17832{col 37}{space 1}   -0.49{col 46}{space 3}0.625{col 54}{space 4}-.4367206{col 67}{space 3} .2622811
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-3.403702{col 26}{space 2} 6.899367{col 37}{space 1}   -0.49{col 46}{space 3}0.622{col 54}{space 4}-16.92621{col 67}{space 3} 10.11881
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-14.17934{col 26}{space 2} 4.257425{col 37}{space 1}   -3.33{col 46}{space 3}0.001{col 54}{space 4}-22.52374{col 67}{space 3}-5.834942
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. margins,dydx(*)
+{res}
+{txt}{col 1}Average marginal effects{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:145}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(Bankruptcy), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:NIMTA TLMTA MB RSIZE CASHMTA}{p_end}
+{p2colreset}{...}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-.2645069{col 26}{space 2}  .145227{col 37}{space 1}   -1.82{col 46}{space 3}0.069{col 54}{space 4}-.5491466{col 67}{space 3} .0201328
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} .6287691{col 26}{space 2} .2549767{col 37}{space 1}    2.47{col 46}{space 3}0.014{col 54}{space 4}  .129024{col 67}{space 3} 1.128514
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0079942{col 26}{space 2}  .007058{col 37}{space 1}    1.13{col 46}{space 3}0.257{col 54}{space 4}-.0058392{col 67}{space 3} .0218277
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0042852{col 26}{space 2} .0085844{col 37}{space 1}   -0.50{col 46}{space 3}0.618{col 54}{space 4}-.0211103{col 67}{space 3} .0125399
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-.1672286{col 26}{space 2}  .336276{col 37}{space 1}   -0.50{col 46}{space 3}0.619{col 54}{space 4}-.8263173{col 67}{space 3} .4918602
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. margins,dydx(*) atmeans
+{res}
+{txt}{col 1}Conditional marginal effects{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:145}
+{txt}{col 1}Model VCE: {res:OIM}
+
+{txt}{p2colset 1 13 13 2}{...}
+{p2col:Expression:}{res:Pr(Bankruptcy), predict()}{p_end}
+{p2col:dy/dx wrt:}{res:NIMTA TLMTA MB RSIZE CASHMTA}{p_end}
+{p2colreset}{...}
+{lalign 4:At: }{space 0}{lalign 7:NIMTA} = {res:{ralign 9:-.0112566}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:TLMTA} = {res:{ralign 9:.5970872}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:MB} = {res:{ralign 9:1.857537}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:RSIZE} = {res:{ralign 9:-11.3026}} {txt:(mean)}
+{lalign 4:}{space 0}{lalign 7:CASHMTA} = {res:{ralign 9:.0710063}} {txt:(mean)}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26} Delta-method
+{col 14}{c |}      dy/dx{col 26}   std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}NIMTA {c |}{col 14}{res}{space 2}-.0233679{col 26}{space 2} .0341071{col 37}{space 1}   -0.69{col 46}{space 3}0.493{col 54}{space 4}-.0902165{col 67}{space 3} .0434807
+{txt}{space 7}TLMTA {c |}{col 14}{res}{space 2} .0555487{col 26}{space 2}  .062419{col 37}{space 1}    0.89{col 46}{space 3}0.374{col 54}{space 4}-.0667903{col 67}{space 3} .1778877
+{txt}{space 10}MB {c |}{col 14}{res}{space 2} .0007063{col 26}{space 2} .0009481{col 37}{space 1}    0.74{col 46}{space 3}0.456{col 54}{space 4} -.001152{col 67}{space 3} .0025645
+{txt}{space 7}RSIZE {c |}{col 14}{res}{space 2}-.0003786{col 26}{space 2}  .001115{col 37}{space 1}   -0.34{col 46}{space 3}0.734{col 54}{space 4} -.002564{col 67}{space 3} .0018069
+{txt}{space 5}CASHMTA {c |}{col 14}{res}{space 2}-.0147738{col 26}{space 2} .0338296{col 37}{space 1}   -0.44{col 46}{space 3}0.662{col 54}{space 4}-.0810786{col 67}{space 3}  .051531
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. graph dot (mean) Bankruptcy (mean) prob_lpm
+{res}
+{com}. 
